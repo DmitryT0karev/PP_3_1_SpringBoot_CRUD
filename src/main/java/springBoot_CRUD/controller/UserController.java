@@ -33,26 +33,27 @@ public class UserController {
     @PostMapping
     public String createUser(@ModelAttribute("newUser") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "/newUser";
+            return "newUser";
         userService.addUser(user);
         return "redirect:/";
     }
 
-    @GetMapping(value = "/edit/{id}")
-    public String editUser(@PathVariable("id") Long id, Model model) {
+    @GetMapping(value = "/editUser")
+    public String editUser(@RequestParam("id") Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         return "editUser";
     }
 
-    @PatchMapping("/edit/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
-                         @PathVariable("id") Long id) {
+    @PostMapping("/editUser")
+    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "editUser";
         userService.editUser(user);
         return "redirect:/";
     }
 
-    @DeleteMapping(value = "/deleteUser/{id}")
-    public String deleteUser(@PathVariable(name = "id") Long id) {
+    @GetMapping(value = "/deleteUser")
+    public String deleteUser(@RequestParam(name = "id") Long id) {
         userService.deleteUser(id);
         return "redirect:/";
     }

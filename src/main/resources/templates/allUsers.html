@@ -24,16 +24,11 @@
         <td th:text = "${user.getSurname()}"></td>
         <td th:text = "${user.getAge()}"></td>
 
+        <td>
+            <a th:href="@{/editUser(id=${user.getId()})}" class="btn btn-danger">Edit</a>
 
-        <td>
-            <form th:method="GET" th:action="@{/edit/__${user.getId()}__}">
-                <input type="submit" value="Edit">
-            </form>
-        </td>
-        <td>
-            <form th:method="DELETE" th:action="@{/deleteUser/__${user.id}__}">
-                <input type="submit" value="Delete">
-            </form>
+            <a th:href="@{/deleteUser(id=${user.getId()})}" class="btn btn-danger">Delete</a>
+
         </td>
 
 
